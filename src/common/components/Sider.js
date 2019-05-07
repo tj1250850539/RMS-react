@@ -10,7 +10,7 @@ function SiderComponent() {
     }}
     >
       <div className="logo" />
-      <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+      <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
         <Menu.Item key="1">
           <Link to='/index'>
             <Icon type="edit" theme="filled" />
