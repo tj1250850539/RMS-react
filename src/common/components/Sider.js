@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 const { Sider } = Layout;
 
-function SiderComponent() {
+
+function SiderComponent(props) {
   return (
     <Sider style={{
       overflow: 'auto', height: '100vh', position: 'fixed', left: 0,
     }}
     >
-      <div className="logo" />
-      <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+      <div className="logo" style={{width:'80px',height:'80px',background:'red',margin:'auto'}}/>
+      <Menu theme="dark" mode="inline" defaultSelectedKeys={[props.pathName]}>
         <Menu.Item key="1">
           <Link to='/index'>
             <Icon type="edit" theme="filled" />
