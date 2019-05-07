@@ -18,7 +18,7 @@ function SiderComponent() {
           </Link>
         </Menu.Item>
         <Menu.Item key="2">
-          <Link to='/data'>
+          <Link to='/dataadmin'>
             <Icon type="hdd" theme="filled" />
             <span className="nav-text">数据管理</span>
           </Link>
