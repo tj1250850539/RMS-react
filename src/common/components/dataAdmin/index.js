@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Input, Button, Table } from 'antd';
+import axios from 'axios'
 
 
 
@@ -54,6 +55,8 @@ const mapDispathToProps = (dispatch) =>{
     },
     getsearch: (value,data) =>{
       let arr = []
+      axios.get('/Data/list.json').then(res => {
+        let data = res.data.data.list
         for(let item in data){
           if(value === ''){
             arr.push({
@@ -77,6 +80,7 @@ const mapDispathToProps = (dispatch) =>{
           type:'getChangeData',
           data:arr
         })
+      })
     },
     onInputChange: (e) =>{
       dispatch({
