@@ -10,6 +10,9 @@ export default (state = defaultState, action) => {
         action.props.history.replace('/index')
       }
       break;
+    case 'onChange':
+      newState.isLogin = false
+      break;
     default:
       break;
   }
