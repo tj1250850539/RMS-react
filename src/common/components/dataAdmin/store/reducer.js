@@ -1,5 +1,10 @@
 //import { fromJS } from 'immutable';
-
+import axios from 'axios'
+async function a () {
+  let res = await axios.get('/Data/list.json')
+  console.log(res.data.data.list)
+  return res.data.data.list
+}
 const defaultState = {
   selectedRowKeys: [],
   columns:[{
@@ -13,6 +18,8 @@ const defaultState = {
     dataIndex: 'address',
   }],
   data:[],
+  inputValue:'',
+  a:a(),
 }
 
 export default (state = defaultState, action) => {
@@ -23,6 +30,9 @@ export default (state = defaultState, action) => {
       break;
     case 'getChangeData':
       newState.data = action.data
+      break;
+    case 'onInputChange':
+      newState.inputValue = action.value
       break;
     default:
     break;

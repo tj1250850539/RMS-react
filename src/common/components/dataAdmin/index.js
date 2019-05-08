@@ -2,7 +2,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Input, Button, Table } from 'antd';
-import axios from 'axios'
 
 
 
@@ -10,40 +9,26 @@ class DataAdmin extends React.Component{
   constructor(props) {
     super(props)
     this.state = {
-      lodDate : []
     }
-
   }
   componentWillMount () {
-    axios.get('/Data/list.json').then((res) =>{
-      let data = res.data.data.list
-      let arr = []
-      for(let item in data){
-        arr.push({
-          key: data[item].id,
-          name: data[item].name,
-          age: 32,
-          address: data[item].id,
-        });
-      }
-      this.setState({
-        lodDate:arr
-      })
-    })
-
-    console.log(this.state.lodDate)
+    this.props.getsearch('')
+  }
+  componentWillUnmount () {
+    console.log(2222)
   }
   render() {
-    const { selectedRowKeys, columns, data, getChangeData, getsearch } = this.props;
+    const { selectedRowKeys, columns, data, getsearch, inputValue, onInputChange, DelectData } = this.props;
     const rowSelection = {
       selectedRowKeys,
       onChange: this.props.onSelectChange,
-};
+    };
     return (
       <div>
-        <Input placeholder="请输入" style={ { width:'300px',marginRight:'10px',marginBottom:'10px' } }/>
-        <Button type="primary" onClick={ () =>{ getsearch(getChangeData) } }>搜索</Button>
-        <Table rowSelection={rowSelection} columns={columns} dataSource={data.length === 0 ? this.state.lodDate : data} />
+        <Button type="danger" onClick={ () =>{ DelectData(selectedRowKeys,data) } } style={{ marginRight: '300px' }}>删除</Button>
+        <Input placeholder="请输入" value={ inputValue } onChange={ onInputChange } style={ { width:'300px',marginRight:'10px',marginBottom:'10px' } }/>
+        <Button type="primary" onClick={ () =>{ getsearch(inputValue) } }>搜索</Button>
+        <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
       </div>
     )
   }
@@ -51,6 +36,7 @@ class DataAdmin extends React.Component{
 
 const mapStateToProps = (state) =>{
   return {
+    inputValue: state.dataAdmin.inputValue,
     selectedRowKeys: state.dataAdmin.selectedRowKeys,
     columns: state.dataAdmin.columns,
     data: state.dataAdmin.data
@@ -66,28 +52,53 @@ const mapDispathToProps = (dispatch) =>{
         txt:selectedRowKeys
       })
     },
-    getChangeData: () =>{
-      //获取data数据
+    getsearch: (value,data) =>{
       let arr = []
-      axios.get('/Data/list.json').then((res) =>{
-        let data = res.data.data.list
         for(let item in data){
-          arr.push({
-            key: data[item].id,
-            name: data[item].name,
-            age: 32,
-            address: data[item].id,
-          });
+          if(value === ''){
+            arr.push({
+              key: data[item].id,
+              name: data[item].name,
+              age: 32,
+              address: data[item].id,
+            });
+          }else {
+            if(data[item].name.indexOf(value) > -1){
+              arr.push({
+                key: data[item].id,
+                name: data[item].name,
+                age: 32,
+                address: data[item].id,
+              });
+            }
+          }
         }
         dispatch({
           type:'getChangeData',
           data:arr
         })
-      })
-
     },
-    getsearch: (getChangeData) =>{
-      getChangeData()
+    onInputChange: (e) =>{
+      dispatch({
+        type:'onInputChange',
+        value:e.target.value
+      })
+    },
+    DelectData: (selectedRowKeys,data) =>{
+      if(selectedRowKeys.length){
+        for(let j in selectedRowKeys){
+          for(let i in data){
+            if(selectedRowKeys[j] === data[i].key){
+              data.splice(i,1)
+              break
+            }
+          }
+        }
+        dispatch({
+          type:'getChangeData',
+          data:data
+        })
+      }
     }
   }
 }

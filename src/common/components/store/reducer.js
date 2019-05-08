@@ -7,7 +7,7 @@ export default (state = defaultState, action) => {
     case 'LOGIN':
       newState.isLogin = true;
       break;
-    defalut :
+    default:
       break;
   }
   return newState

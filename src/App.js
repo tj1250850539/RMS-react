@@ -28,6 +28,8 @@ class App extends PureComponent {
       case '/account':
         this.setState({pathName:'3'})
         break;
+      default:
+        break;
     }
   }
   render () {
