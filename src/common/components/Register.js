@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Input, Button } from 'antd'
-import { Link } from 'react-router-dom'
-class Login extends Component {
+class Register extends Component {
   constructor(props){
     super(props)
     this.state = {
-      // userAccountInfo:props.userAccountInfo,
+      userAccountInfo:props.userAccountInfo,
       account:'',
       passWord:''
     }
@@ -20,9 +19,7 @@ class Login extends Component {
           <p style={{ visibility:'hidden' }}>-----------------------</p>
           <Input type="password" placeholder='密码' value={ this.state.passWord } onChange = { this.getPassWordText }/>
           <p style={{ visibility:'hidden' }}>-----------------------</p>
-          <Button onClick={ this.props.handleLogin.bind(null,this.state.account,this.state.passWord,this.props.userAccountInfo) } type='primary'>登录</Button>
-          <span style={{ visibility:'hidden' }}>----------</span>
-          <Link to='register'>没有账号?去注册</Link>
+          <Button onClick={ this.props.handleRegister.bind(null,this.state.account,this.state.passWord,this.state.userAccountInfo) } type='primary'>注册</Button>
         </div>
     )
   }
@@ -45,30 +42,21 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    handleLogin: (account,passWord,userAccountInfo) => {
-      let isAccount = false
+    handleRegister: (account,passWord,userAccountInfo) => {
       for(let item in userAccountInfo){
-        if(userAccountInfo[item].name == account){
-          if(userAccountInfo[item].password == passWord){
-            isAccount = true
-            alert('登录成功')
-            dispatch({
-              type:'LOGIN',
-              props,
-              account,
-              passWord
-            })
-          } else {
-            alert('密码输入有误')
-            return
-          }
+        if(userAccountInfo[item].name != account){
+          dispatch({
+            type:'REGISTERACCOUNT',
+            account,
+            passWord,
+            props
+          })
           break;
+        } else {
+          console.log('该账号已存在')
         }
-      }
-      if(!isAccount){
-        alert('账号不存在')
       }
     }
   }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Login)
+export default connect(mapStateToProps,mapDispatchToProps)(Register)
