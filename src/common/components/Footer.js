@@ -5,7 +5,7 @@ const { Footer } = Layout
 function FooterComponent () {
   return (
     <Footer style={{ textAlign: 'center' }}>
-      底部
+      Made with <span style={{ color:'red' }}>❤</span> byAFX
     </Footer>
   )
 }

@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import { Layout, Menu, Icon } from 'antd';
+import React from 'react';
+import { Layout, Menu, Icon, Avatar } from 'antd';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 const { Sider } = Layout;
 
 
@@ -11,7 +10,7 @@ function SiderComponent(props) {
       overflow: 'auto', height: '100vh', position: 'fixed', left: 0,
     }}
     >
-      <div className="logo" style={{width:'80px',height:'80px',background:'red',margin:'auto',borderRadius:'50%'}}/>
+       <Avatar size={64} icon="user" style={{ margin:'10px 0 10px 60px' }}/>
       <Menu theme="dark" mode="inline" defaultSelectedKeys={[props.pathName]}>
         <Menu.Item key="1">
           <Link to='/index'>
