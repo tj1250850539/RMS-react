@@ -6,6 +6,9 @@ export default (state = defaultState, action) => {
   switch (action.type) {
     case 'LOGIN':
       newState.isLogin = true;
+      if(newState.isLogin){
+        action.props.history.replace('/index')
+      }
       break;
     default:
       break;
