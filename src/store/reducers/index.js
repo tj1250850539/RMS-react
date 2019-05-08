@@ -7,5 +7,6 @@ import components from '../../common/components/store/reducer'
 
 export default combineReducers({
   dataAdmin,
-  components
+  components,
+  account
 })
