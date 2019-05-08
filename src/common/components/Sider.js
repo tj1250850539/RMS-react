@@ -11,7 +11,7 @@ function SiderComponent(props) {
       overflow: 'auto', height: '100vh', position: 'fixed', left: 0,
     }}
     >
-      <div className="logo" style={{width:'80px',height:'80px',background:'red',margin:'auto'}}/>
+      <div className="logo" style={{width:'80px',height:'80px',background:'red',margin:'auto',borderRadius:'50%'}}/>
       <Menu theme="dark" mode="inline" defaultSelectedKeys={[props.pathName]}>
         <Menu.Item key="1">
           <Link to='/index'>
